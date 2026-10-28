@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure Checkout - Complete your delivery address and choose your payment method on FoodieHub.">
+  <title>Checkout | FoodieHub - Fast & Fresh Food Delivery</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/cart.css">
+  <link rel="stylesheet" href="css/checkout.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="header" id="header">
+    <nav class="navbar container" aria-label="Main Navigation">
+      <!-- Brand Logo -->
+      <a href="index.html" class="logo" id="brand-logo">
+        <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+        <span class="logo-text">Foodie<span>Hub</span></span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link" id="nav-home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="menu.html" class="nav-link" id="nav-menu-link">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#offers" class="nav-link" id="nav-offers">Offers</a>
+        </li>
+        <li class="nav-item">
+          <a href="orders.html" class="nav-link" id="nav-orders">Orders</a>
+        </li>
+      </ul>
+
+      <!-- Navbar Actions (Cart & Mobile Toggle) -->
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-btn" id="nav-cart-btn" aria-label="View Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div class="nav-backdrop" id="nav-backdrop"></div>
+
+  <!-- ==================== BREADCRUMB ==================== -->
+  <div class="breadcrumb-section" style="padding: 1.25rem 0; background: var(--bg-surface-alt); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
+        <a href="index.html" style="color: var(--text-muted);"><i class="fa-solid fa-house"></i> Home</a>
+        <span style="color: var(--text-light);">/</span>
+        <a href="cart.html" style="color: var(--text-muted);">Cart</a>
+        <span style="color: var(--text-light);">/</span>
+        <span style="color: var(--text-main); font-weight: 600;">Secure Checkout</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+    <section class="checkout-section">
+      <div class="container">
+
+        <!-- 1. EMPTY CART GUARD (Shown if user accesses checkout directly with empty cart) -->
+        <div class="cart-empty-state" id="checkout-empty-guard" style="display: none;">
+          <div class="cart-empty-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <h2 class="cart-empty-title">Your Cart is Empty</h2>
+          <p class="cart-empty-desc">
+            You must add items to your cart before proceeding to checkout.
+          </p>
+          <a href="menu.html" class="btn btn-primary">
+            <i class="fa-solid fa-utensils"></i> Browse Menu
+          </a>
+        </div>
+
+        <!-- 2. CHECKOUT LAYOUT -->
+        <div class="checkout-layout" id="checkout-main-layout">
+
+          <!-- Left Column: Checkout Form -->
+          <form class="checkout-form-container" id="checkout-form" novalidate>
+
+            <!-- STEP 1: Customer Information -->
+            <div class="checkout-card">
+              <div class="checkout-card-header">
+                <span class="step-number">1</span>
+                <h2 class="checkout-card-title">Customer Information</h2>
+              </div>
+
+              <div class="form-grid">
+                <!-- Full Name -->
+                <div class="form-group full-width" id="fg-name">
+                  <label for="cust-name" class="form-label">Full Name *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input 
+                      type="text" 
+                      id="cust-name" 
+                      class="form-control" 
+                      placeholder="e.g. Rahul Sharma"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-name">Please enter a valid name (at least 3 characters).</span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group" id="fg-email">
+                  <label for="cust-email" class="form-label">Email Address *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input 
+                      type="email" 
+                      id="cust-email" 
+                      class="form-control" 
+                      placeholder="rahul@example.com"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-email">Please enter a valid email address.</span>
+                </div>
+
+                <!-- Mobile Number -->
+                <div class="form-group" id="fg-phone">
+                  <label for="cust-phone" class="form-label">Mobile Number (10 Digits) *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-phone"></i>
+                    <input 
+                      type="tel" 
+                      id="cust-phone" 
+                      class="form-control" 
+                      placeholder="9876543210" 
+                      maxlength="10"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-phone">Please enter a valid 10-digit mobile number.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: Delivery Address -->
+            <div class="checkout-card">
+              <div class="checkout-card-header">
+                <span class="step-number">2</span>
+                <h2 class="checkout-card-title">Delivery Address</h2>
+              </div>
+
+              <div class="form-grid">
+                <!-- House / Building -->
+                <div class="form-group full-width" id="fg-house">
+                  <label for="addr-house" class="form-label">House / Flat / Building No. *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-house"></i>
+                    <input 
+                      type="text" 
+                      id="addr-house" 
+                      class="form-control" 
+                      placeholder="Flat 402, Sunshine Apartments"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-house">Please enter your house/flat details.</span>
+                </div>
+
+                <!-- Street / Area -->
+                <div class="form-group full-width" id="fg-street">
+                  <label for="addr-street" class="form-label">Street / Area / Landmark *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input 
+                      type="text" 
+                      id="addr-street" 
+                      class="form-control" 
+                      placeholder="Main Ring Road, Near Metro Station"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-street">Please enter your street or area name.</span>
+                </div>
+
+                <!-- City -->
+                <div class="form-group" id="fg-city">
+                  <label for="addr-city" class="form-label">City *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-city"></i>
+                    <input 
+                      type="text" 
+                      id="addr-city" 
+                      class="form-control" 
+                      placeholder="e.g. Hyderabad"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-city">Please enter your city.</span>
+                </div>
+
+                <!-- State -->
+                <div class="form-group" id="fg-state">
+                  <label for="addr-state" class="form-label">State *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-map"></i>
+                    <input 
+                      type="text" 
+                      id="addr-state" 
+                      class="form-control" 
+                      placeholder="e.g. Telangana"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-state">Please enter your state.</span>
+                </div>
+
+                <!-- Pincode -->
+                <div class="form-group" id="fg-pincode">
+                  <label for="addr-pincode" class="form-label">Pincode (6 Digits) *</label>
+                  <div class="form-input-wrapper">
+                    <i class="fa-solid fa-hashtag"></i>
+                    <input 
+                      type="text" 
+                      id="addr-pincode" 
+                      class="form-control" 
+                      placeholder="500081" 
+                      maxlength="6"
+                      required
+                    >
+                  </div>
+                  <span class="form-error-msg" id="err-pincode">Please enter a valid 6-digit postal pincode.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: Payment Method -->
+            <div class="checkout-card">
+              <div class="checkout-card-header">
+                <span class="step-number">3</span>
+                <h2 class="checkout-card-title">Payment Method</h2>
+              </div>
+
+              <div class="payment-options-grid">
+                <!-- Cash on Delivery -->
+                <label class="payment-card-label selected" id="label-pay-cod">
+                  <input type="radio" name="paymentMethod" value="Cash on Delivery" class="payment-radio" checked>
+                  <div class="payment-card-icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                  </div>
+                  <div>
+                    <div class="payment-card-title">Cash on Delivery</div>
+                    <div class="payment-card-sub">Pay at doorstep</div>
+                  </div>
+                </label>
+
+                <!-- UPI -->
+                <label class="payment-card-label" id="label-pay-upi">
+                  <input type="radio" name="paymentMethod" value="UPI" class="payment-radio">
+                  <div class="payment-card-icon">
+                    <i class="fa-solid fa-qrcode"></i>
+                  </div>
+                  <div>
+                    <div class="payment-card-title">UPI / QR</div>
+                    <div class="payment-card-sub">GPay, PhonePe, Paytm</div>
+                  </div>
+                </label>
+
+                <!-- Card -->
+                <label class="payment-card-label" id="label-pay-card">
+                  <input type="radio" name="paymentMethod" value="Credit/Debit Card" class="payment-radio">
+                  <div class="payment-card-icon">
+                    <i class="fa-solid fa-credit-card"></i>
+                  </div>
+                  <div>
+                    <div class="payment-card-title">Credit / Debit Card</div>
+                    <div class="payment-card-sub">Visa, Mastercard, RuPay</div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Sub-field for UPI simulation -->
+              <div class="payment-subfields" id="subfield-upi" style="display: none; margin-top: 1rem;">
+                <label class="form-label" for="upi-id">Enter UPI ID</label>
+                <div class="form-input-wrapper">
+                  <i class="fa-solid fa-at"></i>
+                  <input type="text" id="upi-id" class="form-control" placeholder="username@oksbi / username@upi">
+                </div>
+                <small style="color: var(--text-muted); margin-top: 0.35rem; display: block;">
+                  A payment request notification will be sent upon ordering.
+                </small>
+              </div>
+
+              <!-- Sub-field for Card simulation -->
+              <div class="payment-subfields" id="subfield-card" style="display: none; margin-top: 1rem;">
+                <div class="form-grid">
+                  <div class="form-group full-width">
+                    <label class="form-label" for="card-number">Card Number</label>
+                    <div class="form-input-wrapper">
+                      <i class="fa-solid fa-credit-card"></i>
+                      <input type="text" id="card-number" class="form-control" placeholder="4532 •••• •••• 8821" maxlength="19">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="card-expiry">Expiry Date</label>
+                    <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY" maxlength="5">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="card-cvv">CVV</label>
+                    <input type="password" id="card-cvv" class="form-control" placeholder="•••" maxlength="3">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+          <!-- Right Column: Order Summary Preview -->
+          <aside class="checkout-summary-card">
+            <h2 class="summary-title">Order Review</h2>
+
+            <!-- Items Preview List -->
+            <div class="checkout-items-preview" id="checkout-items-preview">
+              <!-- Dynamically populated via checkout.js -->
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="summary-rows">
+              <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="checkout-subtotal">₹0</span>
+              </div>
+
+              <div class="summary-row">
+                <span>Delivery Fee</span>
+                <span id="checkout-delivery-fee">₹40</span>
+              </div>
+
+              <div class="summary-row discount-row" id="checkout-discount-row" style="display: none;">
+                <span>Discount (<span id="checkout-discount-code">FOODIE50</span>)</span>
+                <span id="checkout-discount">-₹50</span>
+              </div>
+
+              <div class="summary-divider"></div>
+
+              <div class="summary-row total-row">
+                <span>Total Payable</span>
+                <span id="checkout-grand-total">₹0</span>
+              </div>
+            </div>
+
+            <!-- Place Order Button -->
+            <button type="button" class="btn btn-primary btn-place-order" id="btn-place-order">
+              <i class="fa-solid fa-lock"></i> Place Order
+            </button>
+
+            <!-- Trust Strip -->
+            <div class="cart-trust-strip">
+              <span><i class="fa-solid fa-shield-halved"></i> 256-bit Encrypted</span>
+              <span><i class="fa-solid fa-utensils"></i> Tamper-proof Sealed</span>
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" id="footer">
+    <div class="container footer-container">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+          <span class="logo-text">Foodie<span>Hub</span></span>
+        </a>
+        <p class="footer-tagline">
+          Bringing restaurant-quality flavours and comforting classics straight to your doorstep with love and speed.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Full Menu</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="cart.html">View Cart</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Support</h4>
+        <ul class="footer-contact">
+          <li><i class="fa-solid fa-phone"></i> +91 98765 43210</li>
+          <li><i class="fa-solid fa-envelope"></i> support@foodiehub.com</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p class="copyright">&copy; 2026 FoodieHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

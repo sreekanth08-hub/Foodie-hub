@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore FoodieHub's extensive menu. Handcrafted pizzas, juicy burgers, royal dum biryanis, crispy chicken, wok noodles, desserts, and refreshing drinks.">
+  <title>Our Menu | FoodieHub - Handcrafted Dishes Delivered Fast</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/food-card.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header class="header" id="header">
+    <nav class="navbar container" aria-label="Main Navigation">
+      <!-- Brand Logo -->
+      <a href="index.html" class="logo" id="brand-logo">
+        <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+        <span class="logo-text">Foodie<span>Hub</span></span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link" id="nav-home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="menu.html" class="nav-link active" id="nav-menu-link">Menu</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html#offers" class="nav-link" id="nav-offers">Offers</a>
+        </li>
+        <li class="nav-item">
+          <a href="orders.html" class="nav-link" id="nav-orders">Orders</a>
+        </li>
+      </ul>
+
+      <!-- Navbar Actions (Cart & Mobile Toggle) -->
+      <div class="nav-actions">
+        <a href="cart.html" class="cart-btn" id="nav-cart-btn" aria-label="View Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </a>
+
+        <!-- Mobile Hamburger Button -->
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer Backdrop Overlay -->
+  <div class="nav-backdrop" id="nav-backdrop"></div>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+
+    <!-- MENU HEADER BANNER -->
+    <section class="menu-banner">
+      <div class="container">
+        <span class="section-tag">Chef's Selection</span>
+        <h1 class="menu-banner-title">Our Delicious Menu</h1>
+        <p class="menu-banner-subtitle">
+          Explore handcrafted recipes made from freshly sourced ingredients, prepared with love and authentic culinary mastery.
+        </p>
+      </div>
+    </section>
+
+    <!-- MENU CONTROLS & FOOD CATALOG -->
+    <section class="section menu-section">
+      <div class="container">
+
+        <!-- Toolbar: Search Bar & Sort Dropdown -->
+        <div class="menu-toolbar-top">
+          <div class="menu-search-wrapper">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+              type="text" 
+              id="menu-search-input" 
+              class="menu-search-input" 
+              placeholder="Search dishes by name or category..." 
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="menu-sort-wrapper">
+            <label for="menu-sort-select" class="sort-label">Sort By:</label>
+            <select id="menu-sort-select" class="sort-select">
+              <option value="popular">Popular</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Rating: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills Bar -->
+        <div class="category-filter-bar" id="category-filter-bar" role="tablist">
+          <button class="filter-pill active" data-category="All" role="tab">All</button>
+          <button class="filter-pill" data-category="Pizza" role="tab">Pizza</button>
+          <button class="filter-pill" data-category="Burgers" role="tab">Burgers</button>
+          <button class="filter-pill" data-category="Biryani" role="tab">Biryani</button>
+          <button class="filter-pill" data-category="Chicken" role="tab">Chicken</button>
+          <button class="filter-pill" data-category="Noodles" role="tab">Noodles</button>
+          <button class="filter-pill" data-category="Desserts" role="tab">Desserts</button>
+          <button class="filter-pill" data-category="Drinks" role="tab">Drinks</button>
+        </div>
+
+        <!-- Results Info Strip -->
+        <div class="results-info-bar">
+          <div class="results-count">
+            Showing <span id="results-count">0</span> food items
+          </div>
+        </div>
+
+        <!-- Dynamic Food Grid -->
+        <div class="food-grid" id="food-grid">
+          <!-- Food cards will be injected dynamically via menu.js -->
+        </div>
+
+        <!-- Empty State (Shown when no items match) -->
+        <div class="empty-menu" id="empty-menu-state" style="display: none;">
+          <div class="empty-menu-icon">
+            <i class="fa-solid fa-plate-wheat"></i>
+          </div>
+          <h3 class="empty-menu-title">No food items found</h3>
+          <p class="empty-menu-desc">We couldn't find any dish matching your search or filter. Try another keyword or browse our full menu.</p>
+          <button class="btn btn-primary" id="btn-reset-filters">Reset Filters</button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer" id="footer">
+    <div class="container footer-container">
+      <div class="footer-col footer-brand">
+        <a href="index.html" class="logo footer-logo">
+          <span class="logo-icon"><i class="fa-solid fa-utensils"></i></span>
+          <span class="logo-text">Foodie<span>Hub</span></span>
+        </a>
+        <p class="footer-tagline">
+          Bringing restaurant-quality flavours and comforting classics straight to your doorstep with love and speed.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Full Menu</a></li>
+          <li><a href="index.html#offers">Special Offers</a></li>
+          <li><a href="orders.html">My Orders</a></li>
+          <li><a href="cart.html">View Cart</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Categories</h4>
+        <ul class="footer-links">
+          <li><a href="menu.html?category=Pizza">Pizza</a></li>
+          <li><a href="menu.html?category=Biryani">Biryani</a></li>
+          <li><a href="menu.html?category=Burgers">Burgers</a></li>
+          <li><a href="menu.html?category=Chicken">Chicken</a></li>
+          <li><a href="menu.html?category=Desserts">Desserts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact Us</h4>
+        <ul class="footer-contact">
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 98765 43210</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope"></i>
+            <span>support@foodiehub.com</span>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <span>Open: 10:00 AM – 11:30 PM Daily</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-container">
+        <p class="copyright">&copy; 2026 FoodieHub. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>
